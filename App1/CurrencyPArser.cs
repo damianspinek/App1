@@ -12,9 +12,9 @@ namespace App1
     class CurrencyPArser
     {
 
-        private static String url = "http://www.nbp.pl/kursy/xml/a001z020102.xml";
+        private static String url = "http://www.nbp.pl/kursy/xml/lastA.xml";
 
-        public static async void downloadXml()
+        public static async Task<IEnumerable<Currency>> downloadXml()
         {
             HttpClient httpClient = new HttpClient();
             String fileContent = await httpClient.GetStringAsync(url);
@@ -28,18 +28,12 @@ namespace App1
             var result = from elem in xdoc.Descendants("pozycja")
                          select new Currency
                          {
-                             countryName = (String)elem.Element("nazwa_kraju"),
-                             conversionRate = Int16.Parse((String)elem.Element("przelicznik")),
-                             currencyAsPLN = Double.Parse((String)elem.Element("kurs_sredni")),
-                             currencyCode = (String)elem.Element("kod_waluty"),
-                             currencySymbol = Int16.Parse((String)elem.Element("symbol_waluty"))
+                             nazwaWaluty = (String)elem.Element("nazwa_kraju"),
+                             kursWaluty = Double.Parse((String)elem.Element("kurs_sredni")),
+                             kodWaluty = (String)elem.Element("kod_waluty")
                          };
 
-            foreach (var record in result)
-            {
-                System.Diagnostics.Debug.WriteLine("Country: " + record.countryName + " Conversion rate: " + record.conversionRate +
-                    " as PLN " + record.currencyAsPLN + " Currency code " + record.currencyCode + " Currency symbol " + record.currencySymbol);
-            }
+            return result;
 
 
         }

@@ -24,18 +24,11 @@ namespace App1
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void Test_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-       private void IntializeComponent()
-        {
-            Grid grid = new Grid();
-            ColumnDefinition columnDefinition = new ColumnDefinition();
             
         }
     }
