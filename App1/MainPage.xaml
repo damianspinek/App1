@@ -1,0 +1,4 @@
+﻿<Information xmlns="using:App1"/>
+<Grid x:Name="App1.ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+    <Button Height="72" Width="160" Content="Click Me" />
+</Grid>
