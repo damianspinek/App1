@@ -13,5 +13,6 @@ namespace App1
         public double kursWaluty { get; set; }
         public String nazwaWaluty { get; set; }
 
+
     }
 }

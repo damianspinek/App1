@@ -5,8 +5,26 @@
     xmlns:local="using:App1"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-    <Grid>
-        <Button>Test</Button>
+    mc:Ignorable="d"
+    Background="Aqua"
+    Name="StronaGlowna">
+    <Grid Background="AntiqueWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <AppBar Grid.Row="0">
+            <AppBarButton Click="CloseApp" HorizontalAlignment="Right" Icon="Clear"></AppBarButton>
+        </AppBar>
+        <ListBox x:Name="CurrencyListBox" Grid.Row="1" SelectionChanged="CurrencyListBox_SelectionChanged">
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <Grid Height="52" Width="auto">
+                        <TextBlock x:Name="currencyName" Text="{Binding nazwaWaluty}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="10,0,0,0" />
+                        <TextBlock x:Name="currencyValue" Text="{Binding kursWaluty}" HorizontalAlignment="Right" Margin="391,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="55" FontSize="30" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

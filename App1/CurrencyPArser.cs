@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -17,8 +18,9 @@ namespace App1
         public static async Task<IEnumerable<Currency>> downloadXml()
         {
             HttpClient httpClient = new HttpClient();
-            String fileContent = await httpClient.GetStringAsync(url);
+            byte[] byteArray = await httpClient.GetByteArrayAsync(url);
 
+            String fileContent = Encoding.GetEncoding("ISO-8859-1").GetString(byteArray, 0, byteArray.Length);
             //System.Diagnostics.Debug.Write(fileContent);
 
             XDocument xdoc = new XDocument();
@@ -28,11 +30,10 @@ namespace App1
             var result = from elem in xdoc.Descendants("pozycja")
                          select new Currency
                          {
-                             nazwaWaluty = (String)elem.Element("nazwa_kraju"),
-                             kursWaluty = Double.Parse((String)elem.Element("kurs_sredni")),
+                             nazwaWaluty = (String)elem.Element("nazwa_waluty"),
+                             kursWaluty = Double.Parse(((String)elem.Element("kurs_sredni")).Replace(",",".")),
                              kodWaluty = (String)elem.Element("kod_waluty")
                          };
-
             return result;
 
 
